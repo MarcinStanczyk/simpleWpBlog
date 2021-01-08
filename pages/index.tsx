@@ -74,7 +74,7 @@ export default function Home(props) {
 }
 
 export async function getStaticProps(context) {
-  const params = ["limit: 15"];
+  const params = ["limit: 30"];
   const data = await getTileset(params);
   return {
     props: data,

@@ -53,7 +53,7 @@ export default function ArticleDetail({ article }) {
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  const params = ["limit: 10"];
+  const params = ["limit: 30"];
   const posts = await getTileset(params);
   const allPosts = [
     ...posts.data.tilesetsArticle,
@@ -81,7 +81,7 @@ export async function getStaticPaths() {
 // Get the data for each blog [tag]
 
 export async function getStaticProps(context) {
-  const params = ["limit: 10"];
+  const params = ["limit: 30"];
   const posts = await getTileset(params);
   const allPosts = [
     ...posts.data.tilesetsArticle,
