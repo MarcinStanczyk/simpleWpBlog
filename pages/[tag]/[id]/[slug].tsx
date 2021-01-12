@@ -53,7 +53,7 @@ export default function ArticleDetail({ article }) {
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  const params = ["limit: 10"];
+  const params = ["limit: 30"];
   const posts = await getTileset(params);
   const allPosts = [
     ...posts.data.tilesetsArticle,
@@ -67,8 +67,8 @@ export async function getStaticPaths() {
     return {
       params: {
         tag: slug[1],
-        id: slug[2],
-        slug: slug[3],
+        id: slug[slug.length - 2],
+        slug: slug[slug.length - 1]
       },
     };
   });
@@ -80,7 +80,7 @@ export async function getStaticPaths() {
 // Get the data for each blog [tag]
 
 export async function getStaticProps(context) {
-  const params = ["limit: 10"];
+  const params = ["limit: 30"];
   const posts = await getTileset(params);
   const allPosts = [
     ...posts.data.tilesetsArticle,
@@ -88,10 +88,9 @@ export async function getStaticProps(context) {
   ];
   const post = allPosts.filter((el) => {
     const slugUrl = new URL(el.url);
-    let slug = slugUrl.pathname;
+    let slug = slugUrl.pathname.split("/");
     let result =
-      slug ===
-      `/${context.params.tag}/${context.params.id}/${context.params.slug}`;
+        (slug[slug.length - 1] === `${context.params.slug}`);
     return result;
   });
   const articleData = await getPostDetails(post[0].url);
